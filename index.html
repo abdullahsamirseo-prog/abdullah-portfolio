@@ -15,6 +15,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Abdullah Samir","jobTitle":"SEO Specialist","email":"abdullah.samir.seo@gmail.com","telephone":"+201284433006","sameAs":["https://linkedin.com/in/abdallah-seo-specialist"],"knowsAbout":["Technical SEO","Content Strategy","Local SEO","GA4","Google Search Console"]}
 </script>
+<script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
   --ink:#0a1633; --navy:#0b1f6b; --blue:#0a4bff; --sky:#e8eefc; --line:#cfd9f2; --paper:#ffffff; --mute:#4a5578;
@@ -108,6 +109,51 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
 }
 @media (max-width:560px){ header .wrap{flex-direction:column;padding-top:10px;padding-bottom:10px} }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* motion: one hero entrance, quiet reveals, hover feedback */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes unveil{from{clip-path:inset(0 0 100% 0);transform:scale(1.04)}to{clip-path:inset(0);transform:none}}
+.hero .wrap>div:first-child>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .wrap>div:first-child>:nth-child(2){animation-delay:.1s}
+.hero .wrap>div:first-child>:nth-child(3){animation-delay:.2s}
+.hero .wrap>div:first-child>:nth-child(4){animation-delay:.3s}
+.photo{animation:unveil .9s cubic-bezier(.2,.7,.2,1) .15s both}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+nav a{position:relative;padding:4px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav a:hover::after,nav a.on::after{transform:scaleX(1)}
+.btn{transition:background .2s,color .2s,transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.case figure{overflow:hidden;border-radius:14px}
+.case figure img{transition:transform .5s ease}
+.case figure:hover img{transform:scale(1.025)}
+
+/* logos */
+.brands{padding:34px 0;border-bottom:1px solid var(--line)}
+.brands .wrap{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.brands p{font-weight:600;color:var(--navy);min-width:150px}
+.brands .row{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.logo-card{background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;padding:14px 20px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.logo-card:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 10px 24px rgba(10,75,255,.12)}
+.logo-card img{height:44px;width:auto;max-width:160px;object-fit:contain}
+.logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;margin-bottom:34px}
+.logos .logo-card{height:92px}
+.job-head{display:flex;align-items:center;gap:18px;margin-bottom:6px}
+.job-head img{height:40px;width:auto;max-width:120px;object-fit:contain;flex:none}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 36px}
+.service{border-left:3px solid var(--blue);padding-left:18px}
+.service h3{font-size:1.2rem;color:var(--navy);margin-bottom:6px}
+.service p{color:var(--mute);font-size:.97rem}
+@media (max-width:860px){.services{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.services{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  .hero .wrap>div:first-child>*,.photo{animation:none}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  .btn,.logo-card,.case figure img{transition:none}
+}
 </style>
 </head>
 <body>
@@ -115,7 +161,7 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
   <div class="wrap">
     <a class="brand" href="#top">Abdullah Samir</a>
     <nav aria-label="Main">
-      <a href="#about">About</a><a href="#results">Results</a><a href="#experience">Experience</a><a href="#copywriting">Copywriting</a><a href="#tools">Tools</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#results">Results</a><a href="#experience">Experience</a><a href="#services">Services</a><a href="#copywriting">Copywriting</a><a href="#tools">Tools</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -129,14 +175,26 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
       <div class="btns">
         <a class="btn primary" href="#results">See the results</a>
         <a class="btn ghost" href="#contact">Get in touch</a>
+        <a class="btn ghost" href="assets/Abdullah-Samir-Portfolio.pdf" download>Download PDF</a>
       </div>
       <div class="stats">
-        <div><b>3+</b><span>Years of experience</span></div>
-        <div><b>20+</b><span>Projects</span></div>
-        <div><b>140%</b><span>Peak organic growth</span></div>
+        <div><b data-count="3" data-suffix="+">3+</b><span>Years of experience</span></div>
+        <div><b data-count="20" data-suffix="+">20+</b><span>Projects</span></div>
+        <div><b data-count="140" data-suffix="%">140%</b><span>Peak organic growth</span></div>
       </div>
     </div>
     <div class="photo"><img src="assets/abdullah-photo.jpg" width="924" height="1075" alt="Portrait of Abdullah Samir, SEO specialist"></div>
+  </div>
+</section>
+
+<section class="brands" aria-label="Companies and platforms I have worked with">
+  <div class="wrap">
+    <p>Where I've worked</p>
+    <div class="row">
+      <div class="logo-card"><img src="assets/logo-al-judy.png" alt="Al-Judy Digital Marketing logo" width="236" height="120"></div>
+      <div class="logo-card"><img src="assets/logo-business-spike.png" alt="Business Spike Financial Consulting logo" width="332" height="120"></div>
+      <div class="logo-card"><img src="assets/logo-freelancer.png" alt="Freelancer logo" width="360" height="88"></div>
+    </div>
   </div>
 </section>
 
@@ -200,7 +258,7 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
     <p class="lede">From in-house consulting to an agency portfolio and independent projects.</p>
     <div class="jobs">
       <div class="job">
-        <h3>Al-Judy Digital Marketing · SEO Specialist</h3>
+        <div class="job-head"><img src="assets/logo-al-judy.png" alt="" width="236" height="120"><h3>Al-Judy Digital Marketing · SEO Specialist</h3></div>
         <p class="when">Oct 2025 – Present</p>
         <p style="margin-bottom:10px;color:var(--mute)">I manage and execute SEO strategies for a portfolio of 6 clients across different sectors and markets, from analyzing the current situation to implementing and tracking the strategy.</p>
         <ul>
@@ -212,7 +270,7 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
         </ul>
       </div>
       <div class="job">
-        <h3>Freelance · SEO Specialist</h3>
+        <div class="job-head"><img src="assets/logo-freelancer.png" alt="" width="360" height="88"><h3>Freelance · SEO Specialist</h3></div>
         <p class="when">Mar 2025 – Present</p>
         <p style="margin-bottom:10px;color:var(--mute)">Alongside full-time roles, I independently manage SEO projects for clients across multiple sectors.</p>
         <ul>
@@ -225,7 +283,7 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
         </ul>
       </div>
       <div class="job">
-        <h3>Business Spike Financial Consulting · SEO Specialist</h3>
+        <div class="job-head"><img src="assets/logo-business-spike.png" alt="" width="332" height="120"><h3>Business Spike Financial Consulting · SEO Specialist</h3></div>
         <p class="when">Apr 2024 – Oct 2025</p>
         <p style="margin-bottom:10px;color:var(--mute)">I grew the organic visibility of a financial consulting website through market analysis, keyword research and continuous improvement of the site and its content.</p>
         <ul>
@@ -236,6 +294,21 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
           <li>Tracked ranking and visibility trends to guide SEO decisions.</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <h2>What I do</h2>
+    <p class="lede">The work behind the results, from the first audit to the monthly report.</p>
+    <div class="services">
+      <div class="service"><h3>Technical SEO</h3><p>Crawlability, indexation, page speed and site structure fixes that remove what holds rankings back.</p></div>
+      <div class="service"><h3>Keyword and intent research</h3><p>High-value commercial keywords mapped to what people actually want when they search.</p></div>
+      <div class="service"><h3>Content strategy</h3><p>Content plans and strategic briefs built around growth opportunities and the client's journey.</p></div>
+      <div class="service"><h3>On-page and schema</h3><p>Service pages, internal linking and Schema Markup optimized for both users and search engines.</p></div>
+      <div class="service"><h3>Link building</h3><p>Off-page strategies that earn quality backlinks and raise site authority.</p></div>
+      <div class="service"><h3>Reporting and AI visibility</h3><p>GA4 and Search Console analysis, plus brand visibility in AI Overviews.</p></div>
     </div>
   </div>
 </section>
@@ -262,11 +335,11 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
     <h2>Tools and platforms</h2>
     <p class="lede">The stack I use for research, audits, tracking and implementation.</p>
     <h3 class="small">Google tools</h3>
-    <div class="chips"><span>Google Search Console</span><span>Google Analytics 4</span><span>Google Keyword Planner</span></div>
+    <div class="logos"><div class="logo-card"><img src="assets/logo-search-console.png" alt="Google Search Console" width="358" height="120" loading="lazy"></div><div class="logo-card"><img src="assets/logo-ga4.png" alt="Google Analytics 4" width="258" height="79" loading="lazy"></div><div class="logo-card"><img src="assets/logo-keyword-planner.png" alt="Google Keyword Planner" width="245" height="116" loading="lazy"></div></div>
     <h3 class="small">SEO tools</h3>
-    <div class="chips"><span>Semrush</span><span>Ahrefs</span><span>Ubersuggest</span><span>Screaming Frog</span><span>SEO PowerSuite</span></div>
+    <div class="logos"><div class="logo-card"><img src="assets/logo-semrush.png" alt="Semrush" width="360" height="45" loading="lazy"></div><div class="logo-card"><img src="assets/logo-ahrefs.png" alt="Ahrefs" width="311" height="80" loading="lazy"></div><div class="logo-card"><img src="assets/logo-ubersuggest.png" alt="Ubersuggest" width="245" height="74" loading="lazy"></div><div class="logo-card"><img src="assets/logo-screaming-frog.png" alt="Screaming Frog" width="360" height="59" loading="lazy"></div></div>
     <h3 class="small">CMS and e-commerce platforms</h3>
-    <div class="chips"><span>WordPress</span><span>WooCommerce</span><span>Shopify</span><span>Zid</span><span>Salla</span></div>
+    <div class="logos"><div class="logo-card"><img src="assets/logo-wordpress.png" alt="WordPress" width="285" height="120" loading="lazy"></div><div class="logo-card"><img src="assets/logo-woocommerce.png" alt="WooCommerce" width="292" height="76" loading="lazy"></div><div class="logo-card"><img src="assets/logo-shopify.png" alt="Shopify" width="360" height="103" loading="lazy"></div><div class="logo-card"><img src="assets/logo-zid.png" alt="Zid" width="205" height="120" loading="lazy"></div><div class="logo-card"><img src="assets/logo-salla.png" alt="Salla" width="276" height="120" loading="lazy"></div></div>
   </div>
 </section>
 
@@ -276,12 +349,39 @@ footer{padding:26px 0;text-align:center;font-size:.88rem;color:var(--mute)}
     <ul>
       <li>Email: <a href="mailto:abdullah.samir.seo@gmail.com">abdullah.samir.seo@gmail.com</a></li>
       <li>Phone: <a href="tel:+201284433006">+20 128 443 3006</a></li>
+      <li>Portfolio: <a href="assets/Abdullah-Samir-Portfolio.pdf" download>Download the PDF</a></li>
       <li>LinkedIn: <a href="https://linkedin.com/in/abdallah-seo-specialist" rel="noopener">linkedin.com/in/abdallah-seo-specialist</a></li>
     </ul>
   </div>
 </section>
 </main>
 <footer>© <span id="y">2026</span> Abdullah Samir</footer>
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('.case,.job,.service,.logos .logo-card,.copy .grid img,.brands .logo-card');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    els.forEach(function(el,i){el.classList.add('reveal');el.style.transitionDelay=(i%3)*70+'ms';io.observe(el)});
+  }
+  // stat count-up, once
+  var stats=document.querySelectorAll('.stats b[data-count]');
+  if(!reduce && 'IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return; so.unobserve(e.target);
+      var el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
+      (function step(t){t0=t0||t;var p=Math.min((t-t0)/1200,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(step)})(performance.now());
+    })},{threshold:.6});
+    stats.forEach(function(el){so.observe(el)});
+  }
+  // active nav link
+  var links=document.querySelectorAll('nav a');
+  if('IntersectionObserver' in window){
+    var no=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+    document.querySelectorAll('main section[id]').forEach(function(sec){no.observe(sec)});
+  }
+})();
+</script>
 </body>
 </html>
