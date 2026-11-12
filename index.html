@@ -180,11 +180,12 @@ dialog#lb button{position:absolute;top:10px;right:10px;border:0;border-radius:8p
 .c-card.dark{background:var(--navy);border-color:var(--navy)}
 .c-card img{max-width:78%;max-height:64px;width:auto;height:auto}
 .cwrap.live{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.cwrap.live{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cwrap.live.dragging{cursor:grabbing}
+.c-card img{pointer-events:none;-webkit-user-drag:none}
 .cwrap.live .ctrack{flex-wrap:nowrap;justify-content:flex-start;padding:0;will-change:transform}
 .cwrap.live .c-card{opacity:.72;filter:grayscale(1);transform:scale(.88);transition:opacity .6s,filter .6s,transform .6s,box-shadow .6s}
 .cwrap.live .c-card.active{opacity:1;filter:none;transform:scale(1.1);box-shadow:0 12px 28px rgba(10,75,255,.18)}
-.cpause{display:block;margin:6px auto 0;border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:999px;padding:6px 18px;font:600 .9rem var(--body);cursor:pointer}
-.cpause:hover{background:var(--navy);color:#fff}
 @media (max-width:560px){.cwrap{--cw:150px;--gap:14px}.c-card{height:96px}}
 @media (prefers-reduced-motion:reduce){.cwrap.live .c-card{transition:none}}
 </style>
@@ -312,7 +313,6 @@ dialog#lb button{position:absolute;top:10px;right:10px;border:0;border-radius:8p
       <div class="c-card"><img src="assets/clients/mashroaak.png" width="388" height="160" loading="lazy" alt="Mashroaak Project Management"></div>
     </div>
   </div>
-  <div class="wrap"><button id="cpause" class="cpause" type="button" hidden>Pause</button></div>
 </section>
 
 <section id="experience">
@@ -424,6 +424,10 @@ dialog#lb button{position:absolute;top:10px;right:10px;border:0;border-radius:8p
         <div><h3>Building Websites with WordPress</h3><p>Easyt.online · Jun 2025</p></div>
       </article>
       <article class="cert">
+        <button type="button" data-full="assets/cert-html5.jpg" data-alt="University of Michigan course certificate on Coursera for Introduction to HTML5"><img src="assets/cert-html5.jpg" width="817" height="629" loading="lazy" alt="University of Michigan course certificate on Coursera for Introduction to HTML5"></button>
+        <div><h3>Introduction to HTML5</h3><p>University of Michigan, via Coursera · Jan 2023</p></div>
+      </article>
+      <article class="cert">
         <button type="button" data-full="assets/cert-meta-management.jpg" data-alt="Meta course certificate on Coursera for Social Media Management"><img src="assets/cert-meta-management.jpg" width="1000" height="740" loading="lazy" alt="Meta course certificate on Coursera for Social Media Management"></button>
         <div><h3>Social Media Management</h3><p>Meta, via Coursera · Dec 2022</p>
         <p><a href="https://coursera.org/verify/A684X2APLRT7" rel="noopener" target="_blank">Verify on Coursera</a></p></div>
@@ -484,29 +488,53 @@ document.getElementById('y').textContent=new Date().getFullYear();
     lb.querySelector('button').addEventListener('click',function(){lb.close()});
     lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
   }
-  // client logo carousel: shift left every 3.5s, active logo centered
+  // client logo carousel: auto-advance every 2.5s, plus drag with mouse or swipe on touch
   (function(){
-    var box=document.getElementById('cwrap'),track=document.getElementById('ctrack'),btn=document.getElementById('cpause');
+    var box=document.getElementById('cwrap'),track=document.getElementById('ctrack');
     if(!box||!track||reduce)return;
     [].slice.call(track.children).forEach(function(c){var k=c.cloneNode(true);k.setAttribute('aria-hidden','true');track.appendChild(k)});
-    box.classList.add('live');btn.hidden=false;
-    var K=8;for(var i=0;i<K;i++)track.insertBefore(track.lastElementChild,track.firstElementChild);
-    var x=0,step=0,timer=null,busy=false,manual=false,hover=false;
+    box.classList.add('live');
+    var K=12,x=0,step=0,timer=null,busy=false,drag=null,hover=false,i;
+    for(i=0;i<K;i++)track.insertBefore(track.lastElementChild,track.firstElementChild);
     function measure(){var c=track.children[0],gap=parseFloat(getComputedStyle(track).columnGap)||18;step=c.offsetWidth+gap;x=box.clientWidth/2-(K*step+c.offsetWidth/2);track.style.transition='none';track.style.transform='translateX('+x+'px)'}
-    function mark(){[].forEach.call(track.children,function(c,i){c.classList.toggle('active',i===K)})}
-    function next(){
-      if(busy)return;busy=true;
-      track.children[K].classList.remove('active');track.children[K+1].classList.add('active');
-      track.style.transition='transform .6s cubic-bezier(.4,0,.2,1)';track.style.transform='translateX('+(x-step)+'px)';
-      setTimeout(function(){track.style.transition='none';track.appendChild(track.firstElementChild);track.style.transform='translateX('+x+'px)';busy=false},650);
+    function mark(a){[].forEach.call(track.children,function(c,j){c.classList.toggle('active',j===a)})}
+    function snap(n,ms){
+      busy=true;mark(K+n);
+      track.style.transition='transform '+ms+'ms cubic-bezier(.4,0,.2,1)';
+      track.style.transform='translateX('+(x-n*step)+'px)';
+      setTimeout(function(){
+        track.style.transition='none';var j;
+        if(n>0){for(j=0;j<n;j++)track.appendChild(track.firstElementChild)}
+        else{for(j=0;j<-n;j++)track.insertBefore(track.lastElementChild,track.firstElementChild)}
+        track.style.transform='translateX('+x+'px)';mark(K);busy=false;
+      },ms+50);
     }
-    function play(){stop();timer=setInterval(function(){if(!document.hidden)next()},3500)}
     function stop(){clearInterval(timer);timer=null}
-    measure();mark();play();
-    window.addEventListener('resize',function(){if(!busy)measure()});
-    box.addEventListener('mouseenter',function(){hover=true;stop()});
-    box.addEventListener('mouseleave',function(){hover=false;if(!manual)play()});
-    btn.addEventListener('click',function(){manual=!manual;btn.textContent=manual?'Play':'Pause';btn.setAttribute('aria-pressed',manual);manual?stop():play()});
+    function play(){stop();timer=setInterval(function(){if(!document.hidden&&!busy&&!drag)snap(1,500)},2500)}
+    measure();mark(K);play();
+    window.addEventListener('resize',function(){if(!busy&&!drag)measure()});
+    box.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hover=true;stop()}});
+    box.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hover=false;if(!drag)play()}});
+    box.addEventListener('pointerdown',function(e){
+      if(busy||(e.pointerType==='mouse'&&e.button!==0))return;
+      drag={id:e.pointerId,x0:e.clientX,dx:0};stop();track.style.transition='none';
+      try{box.setPointerCapture(e.pointerId)}catch(_){}
+      box.classList.add('dragging');
+    });
+    box.addEventListener('pointermove',function(e){
+      if(!drag||e.pointerId!==drag.id)return;
+      drag.dx=Math.max(-5*step,Math.min(5*step,e.clientX-drag.x0));
+      track.style.transform='translateX('+(x+drag.dx)+'px)';
+      mark(K+Math.round(-drag.dx/step));
+    });
+    function end(e){
+      if(!drag||e.pointerId!==drag.id)return;
+      var dx=drag.dx,n;drag=null;box.classList.remove('dragging');
+      n=Math.round(-dx/step);if(n===0&&Math.abs(dx)>40)n=dx<0?1:-1;
+      snap(n,n===0?250:450);
+      if(!hover)play();
+    }
+    box.addEventListener('pointerup',end);box.addEventListener('pointercancel',end);
   })();
 })();
 </script>
