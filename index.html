@@ -154,6 +154,39 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   .js .reveal{opacity:1;transform:none;transition:none}
   .btn,.logo-card,.case figure img{transition:none}
 }
+
+/* certificates */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.cert{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s}
+.cert:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 10px 24px rgba(10,75,255,.12)}
+.cert button{all:unset;display:block;cursor:zoom-in;aspect-ratio:4/3;background:var(--sky)}
+.cert button:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
+.cert img{width:100%;height:100%;object-fit:cover;object-position:top}
+.cert div{padding:16px 18px 18px}
+.cert h3{font-size:1.1rem;color:var(--navy);margin-bottom:4px}
+.cert p{font-size:.92rem;color:var(--mute)}
+.cert a{font-size:.9rem;font-weight:600}
+dialog#lb{border:0;border-radius:14px;padding:0;max-width:min(94vw,980px);background:#fff}
+dialog#lb::backdrop{background:rgba(10,22,51,.75)}
+dialog#lb img{width:100%;height:auto;display:block}
+dialog#lb button{position:absolute;top:10px;right:10px;border:0;border-radius:8px;background:var(--navy);color:#fff;font:600 .95rem var(--body);padding:8px 14px;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.cert{transition:none}}
+
+/* client logo carousel */
+.clients{background:var(--sky);padding-bottom:40px}
+.cwrap{--cw:200px;--gap:18px;overflow:hidden;padding:30px 0 50px}
+.ctrack{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--gap);padding:0 24px}
+.c-card{width:var(--cw);height:112px;flex:none;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center}
+.c-card.dark{background:var(--navy);border-color:var(--navy)}
+.c-card img{max-width:78%;max-height:64px;width:auto;height:auto}
+.cwrap.live{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.cwrap.live .ctrack{flex-wrap:nowrap;justify-content:flex-start;padding:0;will-change:transform}
+.cwrap.live .c-card{opacity:.72;filter:grayscale(1);transform:scale(.88);transition:opacity .6s,filter .6s,transform .6s,box-shadow .6s}
+.cwrap.live .c-card.active{opacity:1;filter:none;transform:scale(1.1);box-shadow:0 12px 28px rgba(10,75,255,.18)}
+.cpause{display:block;margin:6px auto 0;border:1.5px solid var(--navy);background:transparent;color:var(--navy);border-radius:999px;padding:6px 18px;font:600 .9rem var(--body);cursor:pointer}
+.cpause:hover{background:var(--navy);color:#fff}
+@media (max-width:560px){.cwrap{--cw:150px;--gap:14px}.c-card{height:96px}}
+@media (prefers-reduced-motion:reduce){.cwrap.live .c-card{transition:none}}
 </style>
 </head>
 <body>
@@ -161,7 +194,7 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   <div class="wrap">
     <a class="brand" href="#top">Abdullah Samir</a>
     <nav aria-label="Main">
-      <a href="#about">About</a><a href="#results">Results</a><a href="#experience">Experience</a><a href="#services">Services</a><a href="#copywriting">Copywriting</a><a href="#tools">Tools</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#results">Results</a><a href="#experience">Experience</a><a href="#services">Services</a><a href="#copywriting">Copywriting</a><a href="#tools">Tools</a><a href="#certificates">Certificates</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -175,7 +208,7 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
       <div class="btns">
         <a class="btn primary" href="#results">See the results</a>
         <a class="btn ghost" href="#contact">Get in touch</a>
-        <a class="btn ghost" href="assets/Abdullah-Samir-Portfolio.pdf" download>Download PDF</a>
+        <a class="btn ghost" href="assets/Abdullah-Samir-CV.pdf" download>Download CV</a>
       </div>
       <div class="stats">
         <div><b data-count="3" data-suffix="+">3+</b><span>Years of experience</span></div>
@@ -191,7 +224,7 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   <div class="wrap">
     <p>Where I've worked</p>
     <div class="row">
-      <div class="logo-card"><img src="assets/logo-al-judy.png" alt="Al-Judy Digital Marketing logo" width="236" height="120"></div>
+      <div class="logo-card"><img src="assets/logo-mrooj.png" alt="Mrooj Marketing Agency logo" width="236" height="120"></div>
       <div class="logo-card"><img src="assets/logo-business-spike.png" alt="Business Spike Financial Consulting logo" width="332" height="120"></div>
       <div class="logo-card"><img src="assets/logo-freelancer.png" alt="Freelancer logo" width="360" height="88"></div>
     </div>
@@ -252,13 +285,43 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   </div>
 </section>
 
-<section id="experience" style="background:var(--sky)">
+<section id="clients" class="clients" aria-labelledby="clients-h">
+  <div class="wrap">
+    <h2 id="clients-h">Websites I've worked on</h2>
+    <p class="lede">A selection of the businesses and websites I've worked with.</p>
+  </div>
+  <div class="cwrap" id="cwrap" role="group" aria-roledescription="carousel" aria-label="Logos of websites I've worked on">
+    <div class="ctrack" id="ctrack">
+      <div class="c-card"><img src="assets/clients/mrooj.png" width="290" height="80" loading="lazy" alt="Mrooj Marketing Agency"></div>
+      <div class="c-card"><img src="assets/clients/al-judy.png" width="111" height="57" loading="lazy" alt="Al-Judy Digital Marketing"></div>
+      <div class="c-card"><img src="assets/clients/aseel-sulimani.png" width="173" height="160" loading="lazy" alt="Aseel Adel Sulimani and his partners Law Firm"></div>
+      <div class="c-card dark"><img src="assets/clients/law-firm-white.png" width="212" height="160" loading="lazy" alt="Law firm"></div>
+      <div class="c-card"><img src="assets/clients/dr-ahmed-alghaiti.png" width="420" height="153" loading="lazy" alt="Dr. Ahmed Mohamed Al-Ghaiti"></div>
+      <div class="c-card"><img src="assets/clients/dr-fatima-yousef.png" width="147" height="52" loading="lazy" alt="Dr. Fatima Yousef Ahmed"></div>
+      <div class="c-card dark"><img src="assets/clients/ertikaa.png" width="420" height="126" loading="lazy" alt="Ertikaa Feasibility Studies"></div>
+      <div class="c-card"><img src="assets/clients/b-logo.png" width="100" height="160" loading="lazy" alt="Client logo"></div>
+      <div class="c-card"><img src="assets/clients/bena2.png" width="420" height="111" loading="lazy" alt="Bena2 for Economic Consulting"></div>
+      <div class="c-card"><img src="assets/clients/jadwaak.png" width="39" height="73" loading="lazy" alt="Jadwaak"></div>
+      <div class="c-card"><img src="assets/clients/plans.png" width="114" height="160" loading="lazy" alt="Plans Digital Content Production"></div>
+      <div class="c-card"><img src="assets/clients/raise-hub.png" width="420" height="136" loading="lazy" alt="Raise Hub"></div>
+      <div class="c-card dark"><img src="assets/clients/white-icon.png" width="113" height="107" loading="lazy" alt="Essam Magdy Law Firm"></div>
+      <div class="c-card"><img src="assets/clients/dar-alkhaleej.png" width="227" height="48" loading="lazy" alt="Dar Al-Khaleej for Smart Solutions and Consulting"></div>
+      <div class="c-card"><img src="assets/clients/mshhor.png" width="420" height="57" loading="lazy" alt="Mshhor Eye Experts"></div>
+      <div class="c-card"><img src="assets/clients/msco.png" width="176" height="98" loading="lazy" alt="MSCO"></div>
+      <div class="c-card"><img src="assets/clients/alali-almutlaq.png" width="420" height="159" loading="lazy" alt="Al-Ali and Al-Mutlaq Law Firm"></div>
+      <div class="c-card"><img src="assets/clients/mashroaak.png" width="388" height="160" loading="lazy" alt="Mashroaak Project Management"></div>
+    </div>
+  </div>
+  <div class="wrap"><button id="cpause" class="cpause" type="button" hidden>Pause</button></div>
+</section>
+
+<section id="experience">
   <div class="wrap">
     <h2>Experience</h2>
     <p class="lede">From in-house consulting to an agency portfolio and independent projects.</p>
     <div class="jobs">
       <div class="job">
-        <div class="job-head"><img src="assets/logo-al-judy.png" alt="" width="236" height="120"><h3>Al-Judy Digital Marketing · SEO Specialist</h3></div>
+        <div class="job-head"><img src="assets/logo-mrooj.png" alt="" width="236" height="120"><h3>Mrooj Marketing Agency · SEO Specialist</h3></div>
         <p class="when">Oct 2025 – Present</p>
         <p style="margin-bottom:10px;color:var(--mute)">I manage and execute SEO strategies for a portfolio of 6 clients across different sectors and markets, from analyzing the current situation to implementing and tracking the strategy.</p>
         <ul>
@@ -271,7 +334,7 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
       </div>
       <div class="job">
         <div class="job-head"><img src="assets/logo-freelancer.png" alt="" width="360" height="88"><h3>Freelance · SEO Specialist</h3></div>
-        <p class="when">Mar 2025 – Present</p>
+        <p class="when">May 2025 – Present</p>
         <p style="margin-bottom:10px;color:var(--mute)">Alongside full-time roles, I independently manage SEO projects for clients across multiple sectors.</p>
         <ul>
           <li><b>12+ projects</b> across medical, legal, consulting, service websites and e-commerce stores.</li>
@@ -298,7 +361,7 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   </div>
 </section>
 
-<section id="services">
+<section id="services" style="background:var(--sky)">
   <div class="wrap">
     <h2>What I do</h2>
     <p class="lede">The work behind the results, from the first audit to the monthly report.</p>
@@ -343,24 +406,57 @@ nav a:hover::after,nav a.on::after{transform:scaleX(1)}
   </div>
 </section>
 
+<section id="certificates" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Courses and certificates</h2>
+    <p class="lede">Continuous learning in SEO, analytics, web building and digital marketing. Select a certificate to view it larger.</p>
+    <div class="certs">
+      <article class="cert">
+        <button type="button" data-full="assets/cert-seo.jpg" data-alt="Certificate of achievement from Easyt.online for the Professional SEO for Websites and YouTube course"><img src="assets/cert-seo.jpg" width="1000" height="740" loading="lazy" alt="Certificate of achievement from Easyt.online for the Professional SEO for Websites and YouTube course"></button>
+        <div><h3>Professional SEO for Websites and YouTube</h3><p>Easyt.online · Jun 2025</p></div>
+      </article>
+      <article class="cert">
+        <button type="button" data-full="assets/cert-ga4.jpg" data-alt="Certificate of achievement from Easyt.online for the Google Analytics GA4 course"><img src="assets/cert-ga4.jpg" width="1000" height="740" loading="lazy" alt="Certificate of achievement from Easyt.online for the Google Analytics GA4 course"></button>
+        <div><h3>Google Analytics (GA4)</h3><p>Easyt.online · Mar 2025</p></div>
+      </article>
+      <article class="cert">
+        <button type="button" data-full="assets/cert-wordpress.jpg" data-alt="Certificate of achievement from Easyt.online for the Building Websites with WordPress course"><img src="assets/cert-wordpress.jpg" width="1000" height="740" loading="lazy" alt="Certificate of achievement from Easyt.online for the Building Websites with WordPress course"></button>
+        <div><h3>Building Websites with WordPress</h3><p>Easyt.online · Jun 2025</p></div>
+      </article>
+      <article class="cert">
+        <button type="button" data-full="assets/cert-meta-management.jpg" data-alt="Meta course certificate on Coursera for Social Media Management"><img src="assets/cert-meta-management.jpg" width="1000" height="740" loading="lazy" alt="Meta course certificate on Coursera for Social Media Management"></button>
+        <div><h3>Social Media Management</h3><p>Meta, via Coursera · Dec 2022</p>
+        <p><a href="https://coursera.org/verify/A684X2APLRT7" rel="noopener" target="_blank">Verify on Coursera</a></p></div>
+      </article>
+      <article class="cert">
+        <button type="button" data-full="assets/cert-meta-intro.jpg" data-alt="Meta course certificate on Coursera for Introduction to Social Media Marketing"><img src="assets/cert-meta-intro.jpg" width="1000" height="740" loading="lazy" alt="Meta course certificate on Coursera for Introduction to Social Media Marketing"></button>
+        <div><h3>Introduction to Social Media Marketing</h3><p>Meta, via Coursera · Aug 2022</p>
+        <p><a href="https://coursera.org/verify/G92JUDDA43P6" rel="noopener" target="_blank">Verify on Coursera</a></p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="contact">
   <div class="wrap">
     <h2>Let's turn your organic search into a growth channel.</h2>
     <ul>
       <li>Email: <a href="mailto:abdullah.samir.seo@gmail.com">abdullah.samir.seo@gmail.com</a></li>
       <li>Phone: <a href="tel:+201284433006">+20 128 443 3006</a></li>
-      <li>Portfolio: <a href="assets/Abdullah-Samir-Portfolio.pdf" download>Download the PDF</a></li>
+      <li>CV: <a href="assets/Abdullah-Samir-CV.pdf" download>Download the CV (PDF)</a></li>
+      <li>Portfolio: <a href="assets/Abdullah-Samir-Portfolio.pdf" download>Download the portfolio (PDF)</a></li>
       <li>LinkedIn: <a href="https://linkedin.com/in/abdallah-seo-specialist" rel="noopener">linkedin.com/in/abdallah-seo-specialist</a></li>
     </ul>
   </div>
 </section>
 </main>
+<dialog id="lb" aria-label="Certificate preview"><img alt=""><button type="button" autofocus>Close</button></dialog>
 <footer>© <span id="y">2026</span> Abdullah Samir</footer>
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
 (function(){
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els=document.querySelectorAll('.case,.job,.service,.logos .logo-card,.copy .grid img,.brands .logo-card');
+  var els=document.querySelectorAll('.case,.job,.service,.logos .logo-card,.copy .grid img,.brands .logo-card,.cert');
   if('IntersectionObserver' in window && !reduce){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
     els.forEach(function(el,i){el.classList.add('reveal');el.style.transitionDelay=(i%3)*70+'ms';io.observe(el)});
@@ -381,6 +477,37 @@ document.getElementById('y').textContent=new Date().getFullYear();
     var no=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
     document.querySelectorAll('main section[id]').forEach(function(sec){no.observe(sec)});
   }
+  // certificate lightbox
+  var lb=document.getElementById('lb');
+  if(lb && lb.showModal){
+    document.querySelectorAll('.cert button').forEach(function(b){b.addEventListener('click',function(){var i=lb.querySelector('img');i.src=b.dataset.full;i.alt=b.dataset.alt;lb.showModal()})});
+    lb.querySelector('button').addEventListener('click',function(){lb.close()});
+    lb.addEventListener('click',function(e){if(e.target===lb)lb.close()});
+  }
+  // client logo carousel: shift left every 3.5s, active logo centered
+  (function(){
+    var box=document.getElementById('cwrap'),track=document.getElementById('ctrack'),btn=document.getElementById('cpause');
+    if(!box||!track||reduce)return;
+    [].slice.call(track.children).forEach(function(c){var k=c.cloneNode(true);k.setAttribute('aria-hidden','true');track.appendChild(k)});
+    box.classList.add('live');btn.hidden=false;
+    var K=8;for(var i=0;i<K;i++)track.insertBefore(track.lastElementChild,track.firstElementChild);
+    var x=0,step=0,timer=null,busy=false,manual=false,hover=false;
+    function measure(){var c=track.children[0],gap=parseFloat(getComputedStyle(track).columnGap)||18;step=c.offsetWidth+gap;x=box.clientWidth/2-(K*step+c.offsetWidth/2);track.style.transition='none';track.style.transform='translateX('+x+'px)'}
+    function mark(){[].forEach.call(track.children,function(c,i){c.classList.toggle('active',i===K)})}
+    function next(){
+      if(busy)return;busy=true;
+      track.children[K].classList.remove('active');track.children[K+1].classList.add('active');
+      track.style.transition='transform .6s cubic-bezier(.4,0,.2,1)';track.style.transform='translateX('+(x-step)+'px)';
+      setTimeout(function(){track.style.transition='none';track.appendChild(track.firstElementChild);track.style.transform='translateX('+x+'px)';busy=false},650);
+    }
+    function play(){stop();timer=setInterval(function(){if(!document.hidden)next()},3500)}
+    function stop(){clearInterval(timer);timer=null}
+    measure();mark();play();
+    window.addEventListener('resize',function(){if(!busy)measure()});
+    box.addEventListener('mouseenter',function(){hover=true;stop()});
+    box.addEventListener('mouseleave',function(){hover=false;if(!manual)play()});
+    btn.addEventListener('click',function(){manual=!manual;btn.textContent=manual?'Play':'Pause';btn.setAttribute('aria-pressed',manual);manual?stop():play()});
+  })();
 })();
 </script>
 </body>
