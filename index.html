@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<script>
+  // Redirect based on browser language preference
+  const lang = navigator.language || navigator.userLanguage || '';
+  if (lang.startsWith('ar')) {
+    window.location.replace('./ar/index.html');
+  } else {
+    window.location.replace('./en/index.html');
+  }
+</script>
+<noscript>
+  <meta http-equiv="refresh" content="0; url=./en/index.html" />
+</noscript>
+</head>
+<body></body>
+</html>
