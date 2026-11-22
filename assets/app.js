@@ -12,5 +12,5 @@ box.innerHTML=(window.REVIEWS||[]).map(v=>`<div class="card"><div class="sr">${'
 
 (()=>{const cls=im=>{const p=im.parentElement;try{const c=document.createElement('canvas'),x=c.getContext('2d');c.width=c.height=48;x.drawImage(im,0,0,48,48);const d=x.getImageData(0,0,48,48).data;let s=0,n=0,t=0;for(let i=0;i<d.length;i+=4){if(d[i+3]>40){s+=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];n++}else t++}p.classList.toggle('dk',n>0&&t/(d.length/4)>.03&&s/n/255>.62)}catch(e){}};
 document.querySelectorAll('img[data-lg]').forEach(im=>{im.addEventListener('load',()=>cls(im));if(im.complete&&im.naturalWidth)cls(im);
-const m=(im.getAttribute('src')||'').match(/clients\/(.+)\.png$/);if(!m)return;const n=m[1],c=['../assets/'+n+'.png','../assets/logo-'+n+'.png','../assets/clients/'+n+'.jpg','../assets/clients/'+n+'.svg','../assets/clients/'+n+'.webp'];let i=0;
+const m=(im.getAttribute('src')||'').match(/client-(.+)\.png$/);if(!m)return;const n=m[1],c=['../assets/clients/'+n+'.png','../assets/'+n+'.png','../assets/logo-'+n+'.png','../assets/clients/'+n+'.jpg','../assets/clients/'+n+'.svg','../assets/clients/'+n+'.webp'];let i=0;
 const f=()=>{if(i<c.length)im.src=c[i++];else im.parentElement.style.display='none'};im.addEventListener('error',f);if(im.complete&&!im.naturalWidth)f()})})();
