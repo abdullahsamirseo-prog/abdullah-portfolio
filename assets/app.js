@@ -9,3 +9,5 @@ const m=`${f.dataset.t}\n${'★'.repeat(r)}${'☆'.repeat(5-r)} (${r}/5)\n${n}\n
 location.href=b.dataset.send==='wa'?`${f.dataset.wa}?text=${e}`:`${f.dataset.mail}?subject=${encodeURIComponent(f.dataset.t)}&body=${e}`});
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),box=$('#rvl');
 box.innerHTML=(window.REVIEWS||[]).map(v=>`<div class="card"><div class="sr">${'★'.repeat(v.stars||5)}</div><p>${esc(v.text)}</p><b>${esc(v.name)}</b><small>${esc(v.role)}</small></div>`).join('')})();
+
+(()=>{document.querySelectorAll('img[data-lg]').forEach(im=>{const go=()=>{const p=im.parentElement;try{const c=document.createElement('canvas'),x=c.getContext('2d');c.width=c.height=48;x.drawImage(im,0,0,48,48);const d=x.getImageData(0,0,48,48).data;let s=0,n=0;for(let i=0;i<d.length;i+=4)if(d[i+3]>40){s+=.2126*d[i]+.7152*d[i+1]+.0722*d[i+2];n++}p.classList.toggle('dk',n>0&&s/n/255>.62)}catch(e){}};im.complete?go():im.addEventListener('load',go)})})();
