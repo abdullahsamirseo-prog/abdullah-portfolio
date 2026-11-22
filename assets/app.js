@@ -14,3 +14,11 @@ box.innerHTML=(window.REVIEWS||[]).map(v=>`<div class="card"><div class="sr">${'
 document.querySelectorAll('img[data-lg]').forEach(im=>{im.addEventListener('load',()=>cls(im));if(im.complete&&im.naturalWidth)cls(im);
 const m=(im.getAttribute('src')||'').match(/client-(.+)\.png$/);if(!m)return;const n=m[1],c=['../assets/clients/'+n+'.png','../assets/'+n+'.png','../assets/logo-'+n+'.png','../assets/clients/'+n+'.jpg','../assets/clients/'+n+'.svg','../assets/clients/'+n+'.webp'];let i=0;
 const f=()=>{if(i<c.length)im.src=c[i++];else im.parentElement.style.display='none'};im.addEventListener('error',f);if(im.complete&&!im.naturalWidth)f()})})();
+
+(()=>{const mq=document.querySelector('.mq');if(!mq)return;
+const build=()=>{const seen=new Set(),set=[];[...mq.children].forEach(t=>{const i=t.querySelector('img');if(i&&i.complete&&i.naturalWidth&&!seen.has(i.alt)){seen.add(i.alt);set.push(t)}});
+if(!set.length)return;mq.innerHTML='';mq.style.animation='none';set.forEach(t=>mq.appendChild(t));
+const g=parseFloat(getComputedStyle(mq).columnGap)||16,w=mq.getBoundingClientRect().width+g,n=Math.ceil(innerWidth*2/w)+1;
+for(let k=0;k<n;k++)set.forEach(t=>mq.appendChild(t.cloneNode(true)));
+mq.style.setProperty('--d',w+'px');mq.style.animation='';mq.style.animationDuration=(w/60)+'s'};
+addEventListener('load',()=>setTimeout(build,500))})();
